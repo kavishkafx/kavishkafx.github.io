@@ -5,8 +5,8 @@ draft: false
 # weight: 1
 # aliases: ["/first"]
 categories: ["General","Linux","Windows","Gaming"]
-tags: ["OGCEYLON"]
-author: "OGC"
+tags: ["kavishkafx"]
+author: "Kavishka"
 # author: ["Me", "You"] # multiple authors
 showToc: true
 TocOpen: false
