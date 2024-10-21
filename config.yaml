@@ -1,5 +1,5 @@
-baseURL: "https://itzkavishka.github.io/"
-title: "ITZKAVISHKA"
+baseURL: "https://kavishkaFX.github.io/"
+title: "KAVISHKA"
 languageCode: "en-us"
 theme: "PaperMod"
 
@@ -19,9 +19,9 @@ minify:
 
 params:
   env: production
-  title: "ITZKAVISHKA - Just a personal blog :)"
+  title: "KAVISHKA - Just a personal blog :)"
   description: "A comprehensive personal blog covering topics on Common Social Incidents,Linux, Windows, Android, Hacker News,Tech News and every kind of topics. Explore insightful articles and stay updated with the latest tech trends."
-  keywords: [Blog, Technology, Linux, Windows, Android, "Hacker News", "Tech News", "Software", "Hardware", "Tutorials","Politics","Thoughts", "itzkavishka"]
+  keywords: [Blog, Technology, Linux, Windows, Android, "Hacker News", "Tech News", "Software", "Hardware", "Tutorials","Politics","Thoughts", "kavishkafx"]
   author: "OGC"
   images: ["/images/favicon/favicon-32x32.png"]
   DateFormat: "January 2, 2006"
@@ -54,13 +54,13 @@ params:
     safari_pinned_tab: "/images/favicon/apple-icon.png"
   
   label:
-    text: "ITZKAVISHKA"
+    text: "KAVISHKA"
     icon: /images/favicon/favicon-32x32.png
     iconHeight: 35
 
   profileMode:
     enabled: false
-    title: "ITZKAVISHKA"
+    title: "KAVISHKA"
     subtitle: "Exploring the world of technology, one post at a time"
     imageUrl: ""
     imageWidth: 200 
@@ -78,13 +78,13 @@ params:
 
   socialIcons:
     - name: github
-      url: "https://github.com/itzkavishka"
+      url: "https://github.com/kavishkafx"
     - name: youtube
-      url: "https://youtube.com/@ogceylon"
+      url: "https://youtube.com/@kavishkafx"
     - name: tiktok
       url: "https://tiktok.com/@itzkavishka"
     - name: telegram
-      url: "https://t.me/itzkavishka"
+      url: "https://t.me/kavishkafx"
     - name: rss
       url: "/index.xml"
 
@@ -98,7 +98,7 @@ params:
     hiddenInSingle: true
 
   editPost:
-    URL: "https://github.com/itzkavishka/itzkavishka.github.io/content"
+    URL: "https://github.com/kavishkafx/kavishkafx.github.io/content"
     Text: "Suggest Changes"
     appendFilePath: true
 
