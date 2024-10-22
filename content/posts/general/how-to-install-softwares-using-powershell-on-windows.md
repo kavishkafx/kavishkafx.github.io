@@ -3,9 +3,9 @@ title: "How to install software using powershell on windows"
 date: 2024-01-04T11:30:03+00:00
 # weight: 1
 # aliases: ["/first"]
-tags: ["windows","how-to","powershell"]
+tags: ["windows","how-to","powershell","kavishkafx"]
 categories: ["Windows"]
-author: "Kavishka Dahanayaka"
+author: "Kavishka"
 # author: ["Me", "You"] # multiple authors
 showToc: true
 TocOpen: false
@@ -32,7 +32,7 @@ cover:
     relative: true # when using page bundles set this to true
     hidden: true # only hide on current single page
 editPost:
-    URL: "https://github.com/itzkavishka/itzkavishka.github.io/tree/main/content"
+    URL: "https://github.com/kavishkafx/kavishkafx.github.io/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---

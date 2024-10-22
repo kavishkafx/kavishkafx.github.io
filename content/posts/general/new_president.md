@@ -5,8 +5,8 @@ draft: false
 # weight: 1
 # aliases: ["/first"]
 categories: ["General","Linux","Windows","Gaming"]
-tags: ["General","Linux","Windows","Gaming","OGCEYLON"]
-author: "OGC"
+tags: ["General","Linux","Windows","Gaming","kavishkafx"]
+author: "Kavishka"
 # author: ["Me", "You"] # multiple authors
 showToc: true
 TocOpen: false
@@ -29,7 +29,7 @@ cover:
     relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
 editPost:
-    URL: "https://github.com/ogceylon/ogceylon.github.io/tree/main/content"
+    URL: "https://github.com/kavishkafx/kavishkafx.github.io/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
@@ -38,4 +38,4 @@ editPost:
 This is a late post, but more people have changed their minds about him positively since his election and after he made some good changes. People initially thought he would be somewhat rough or fearful due to his somewhat Marxist/Leftist past.
 Hope for the best! 👐⚡️
 
-[Previous Post](https://ogceylon.github.io/posts/general/presidentialelectionsl2024/)
+[Previous Post](https://kavishkafx.github.io/posts/general/presidentialelectionsl2024/)
