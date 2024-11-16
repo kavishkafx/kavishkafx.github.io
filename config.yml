@@ -1,0 +1,140 @@
+baseURL: "https://kavishkaFX.github.io/"
+title: "KAVISHKA"
+paginate: 8
+theme: PaperMod
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+googleAnalytics: "G-E7L5P3HRTQ"
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  title: "KAVISHKA"
+  description: "A comprehensive personal blog covering topics on Common Social Incidents, Linux, Windows, Android, Hacker News, Tech News, and various topics. Expert insights, tutorials, and trending tech updates by KAVISHKA."
+  keywords: [Blog, Technology, Linux, Windows, Android, "Hacker News", "Tech News", "Software", "Hardware", "Tutorials", "Politics", "Tech Tutorials", "Tech Guide", "Cybersecurity", "Sri Lanka", "kavishkafx", "KAVISHKA Blog"]
+  author: "KAVISHKA"
+  images: ["/images/favicon/favicon-32x32.png"]
+  DateFormat: "January 2, 2006"
+  defaultTheme: dark
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: true
+
+  assets:
+    disableFingerprinting: true
+    favicon: "/images/favicon/favicon.ico"
+    favicon16x16: "/images/favicon/favicon-16x16.png"
+    favicon32x32: "/images/favicon/favicon-32x32.png"
+    apple_touch_icon: "/images/favicon/apple-icon.png"
+    safari_pinned_tab: "/images/favicon/apple-icon.png"
+
+  label:
+    text: "KAVISHKA"
+    icon: /images/favicon/favicon-32x32.png
+    iconHeight: 35
+
+  profileMode:
+    enabled: false
+    title: "KAVISHKA"
+    subtitle: "Tech Insights, Tutorials & Digital Exploration"
+    imageWidth: 200
+    imageHeight: 200
+    buttons:
+      - name: Posts
+        url: posts
+      - name: Tags
+        url: tags
+
+  homeInfoParams:
+    Title: ""
+    Content: "Discover insights on Linux, Windows, Android, and cutting-edge tech. From tutorials to news analysis, explore the digital world with a seasoned perspective. Join thousands of tech enthusiasts who trust KAVISHKA for reliable tech guidance!"
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/kavishkafx"
+    - name: youtube
+      url: "https://youtube.com/@kavishkafx"
+    - name: tiktok
+      url: "https://tiktok.com/@kavishkafx"
+    - name: telegram
+      url: "https://t.me/kavishkafx"
+    - name: rss
+      url: "/index.xml"
+
+  analytics:
+    google:
+      SiteVerificationTag: "fe4D2p-wxKj7Ztm9V8UMLGlBtzGLroqV1ojTHQo_mv4"
+
+  cover:
+    hidden: false
+    hiddenInList: false
+    hiddenInSingle: true
+
+  editPost:
+    URL: "https://github.com/kavishkafx/kavishkafx.github.io/content"
+    Text: "Suggest Changes"
+    appendFilePath: true
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 5
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 15
+    - identifier: hackernews
+      name: HackerNews
+      url: /hackernews/
+      weight: 20    
+    - identifier: archive
+      name: Archive
+      url: /archives/
+      weight: 25
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 30
+
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: monokai
