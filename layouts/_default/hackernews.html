@@ -1,162 +1,149 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="robots" content="index, follow">
-    <title>{{ .Title }}</title>
-    {{ partial "head.html" . }}
-    <style>
-        :root {
-            --entry: #fff;
-            --primary: #222;
-            --secondary: #666;
-            --tertiary: #999;
-            --content: #222;
-            --border: #eee;
-            --content-gap: 20px;
-            --radius: 5px;
-            --code-bg: #f7f7f7;
-            --code-block-bg: #2f2f2f;
-            --gap: 20px;
-            --header-height: 60px;
-            --footer-height: 60px;
-            --main-width: 800px;
-        }
-        .dark {
-            --entry: #2e2e33;
-            --primary: #ddd;
-            --secondary: #aaa;
-            --tertiary: #888;
-            --content: #bbb;
-            --border: #333;
+<!-- layouts/_default/hackernews.html -->
+{{ define "main" }}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">{{ .Title }}</h1>
+    
+    <!-- Container for Hacker News stories -->
+    <div id="hackernews-stories" class="space-y-6">
+        <!-- Stories will be loaded here -->
+    </div>
+</div>
+
+<!-- Include the JavaScript -->
+<script>
+// Configuration
+const API_BASE_URL = 'https://hacker-news.firebaseio.com/v0';
+const STORIES_TO_FETCH = 10;
+
+// Fetch stories from Hacker News API
+async function fetchHackerNewsStories() {
+    try {
+        const storiesContainer = document.getElementById('hackernews-stories');
+        if (!storiesContainer) {
+            console.error('Stories container element not found');
+            return;
         }
 
-        /* Custom CSS */
-        .page-header,
-        .post-header {
-            margin: 24px auto var(--content-gap) auto;
-        }
+        // Show loading state
+        storiesContainer.innerHTML = '<div class="loading">Loading stories...</div>';
 
-        .post-title {
-            margin-bottom: 2px;
-            font-size: 40px;
+        const response = await fetch(`${API_BASE_URL}/newstories.json`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
+        const storyIds = await response.json();
+        const stories = await Promise.all(
+            storyIds
+                .slice(0, STORIES_TO_FETCH)
+                .map(id => fetchStory(id))
+        );
 
-        .post-description {
-            margin-top: 10px;
-            margin-bottom: 5px;
+        // Filter out any null results from failed story fetches
+        const validStories = stories.filter(story => story !== null);
+        displayStories(validStories);
+    } catch (error) {
+        console.error('Error fetching stories:', error);
+        document.getElementById('hackernews-stories').innerHTML = 
+            '<div class="error">Error loading stories. Please try again later.</div>';
+    }
+}
+
+// Fetch individual story details
+async function fetchStory(id) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/item/${id}.json`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
+        const story = await response.json();
+        return story;
+    } catch (error) {
+        console.error(`Error fetching story ${id}:`, error);
+        return null;
+    }
+}
 
-        .post-meta,
-        .breadcrumbs {
-            color: var(--secondary);
-            font-size: 14px;
-            display: flex;
-            flex-wrap: wrap;
-        }
+// Display stories in the container
+function displayStories(stories) {
+    const storiesContainer = document.getElementById('hackernews-stories');
+    
+    if (stories.length === 0) {
+        storiesContainer.innerHTML = '<div class="no-stories">No stories available at the moment.</div>';
+        return;
+    }
 
-        .post-meta .i18n_list li {
-            display: inline-flex;
-            list-style: none;
-            margin: auto 3px;
-            box-shadow: 0 1px 0 var(--secondary);
-        }
-
-        .breadcrumbs a {
-            font-size: 16px;
-        }
-
-        .post-content {
-            color: var(--content);
-        }
-
-        /* Heading and text styles */
-        .post-content h1 {
-            margin: 40px auto 32px;
-            font-size: 40px;
-        }
-
-        .post-content h2 {
-            margin: 32px auto 24px;
-            font-size: 32px;
-        }
-
-        .post-content h3 {
-            margin: 24px 0 16px;
-            font-size: 24px;
-        }
-
-        /* Add any remaining custom styles here */
-    </style>
-</head>
-<body class="{{ if or (eq .Kind "page") (eq .Kind "section") }}{{ if not .Site.Params.disableThemeToggle }}dark{{ end }}{{ end }}">
-    {{ partial "header.html" . }}
-    <main class="main">
-        <article class="post-single">
-            <header class="post-header">
-                {{ partial "breadcrumbs.html" . }}
-                <h1 class="post-title entry-hint-parent">
-                    {{ .Title }}
-                    {{ if .Draft }}
-                    <span class="entry-hint" title="Draft">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-                            <path d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-                        </svg>
-                    </span>
-                    {{ end }}
-                </h1>
-                {{ if .Description }}
-                <div class="post-description">
-                    {{ .Description }}
-                </div>
-                {{ end }}
-                {{ if not (.Param "hideMeta") }}
-                <div class="post-meta">
-                    {{ partial "post_meta.html" . }}
-                    {{ partial "translation_list.html" . }}
-                    {{ partial "edit_post.html" . }}
-                    {{ partial "post_canonical.html" . }}
-                </div>
-                {{ end }}
-            </header>
-            {{ $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
-            {{ partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
-            {{ if (.Param "ShowToc") }}
-            {{ partial "toc.html" . }}
-            {{ end }}
-            
-            <div class="post-content">
-                {{ if not (.Param "disableAnchoredHeadings") }}
-                {{ partial "anchored_headings.html" .Content }}
-                {{ else }}{{ .Content }}{{ end }}
-                <ul id="hackernews-stories" class="hn-story-list">
-                    <!-- Stories will be inserted here by JavaScript -->
-                </ul>
+    const storiesHTML = stories.map(story => {
+        // Handle cases where story.url might be undefined (like for Ask HN posts)
+        const title = story.title || 'Untitled';
+        const url = story.url || `https://news.ycombinator.com/item?id=${story.id}`;
+        const timestamp = new Date(story.time * 1000).toLocaleString();
+        
+        return `
+            <div class="story bg-white p-4 rounded shadow">
+                <h2 class="text-xl font-semibold">
+                    <a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800">
+                        ${title}
+                    </a>
+                </h2>
+                <p class="text-gray-600 mt-2">
+                    By ${story.by || 'anonymous'} | ${story.score || 0} points | ${timestamp}
+                </p>
             </div>
-            
-            <footer class="post-footer">
-                {{ $tags := .Language.Params.Taxonomies.tag | default "tags" }}
-                <ul class="post-tags">
-                    {{ range ($.GetTerms $tags) }}
-                    <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
-                    {{ end }}
-                </ul>
-                {{ if (.Param "ShowPostNavLinks") }}
-                {{ partial "post_nav_links.html" . }}
-                {{ end }}
-                {{ if and .Site.Params.ShowShareButtons (ne .Params.disableShare true) }}
-                {{ partial "share_icons.html" . }}
-                {{ end }}
-            </footer>
-            
-            {{ if (.Param "comments") }}
-            {{ partial "comments.html" . }}
-            {{ end }}
-        </article>
-    </main>
-    {{ partial "footer.html" . }}
-    <script src="/js/hackernews.js"></script>
-</body>
-</html>
+        `;
+    }).join('');
+
+    storiesContainer.innerHTML = storiesHTML;
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', fetchHackerNewsStories);
+
+// Add refresh functionality
+function addRefreshButton() {
+    const button = document.createElement('button');
+    button.textContent = 'Refresh Stories';
+    button.className = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4';
+    button.onclick = fetchHackerNewsStories;
+    document.getElementById('hackernews-stories').before(button);
+}
+
+document.addEventListener('DOMContentLoaded', addRefreshButton);
+</script>
+
+<!-- Add some basic styles -->
+<style>
+.loading {
+    padding: 1rem;
+    text-align: center;
+    color: #666;
+}
+
+.error {
+    padding: 1rem;
+    text-align: center;
+    color: #ff0000;
+    background-color: #fff;
+    border: 1px solid #ff0000;
+    border-radius: 0.25rem;
+}
+
+.no-stories {
+    padding: 1rem;
+    text-align: center;
+    color: #666;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+}
+
+.story {
+    transition: transform 0.2s;
+}
+
+.story:hover {
+    transform: translateY(-2px);
+}
+</style>
+{{ end }}
