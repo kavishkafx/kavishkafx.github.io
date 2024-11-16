@@ -8,9 +8,16 @@ buildFuture: false
 buildExpired: false
 enableEmoji: true
 googleAnalytics: "G-E7L5P3HRTQ"
+
 minify:
   disableXML: true
   minifyOutput: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
 
 params:
   env: production
@@ -119,7 +126,7 @@ menu:
     - identifier: hackernews
       name: HackerNews
       url: /hackernews/
-      weight: 20    
+      weight: 20
     - identifier: archive
       name: Archive
       url: /archives/
