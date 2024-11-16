@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index, follow">
+    <title>{{ .Title }} - {{ .Site.Title }}</title>
+    {{ partial "head.html" . }}
+    <style>
+        /* Base theme variables */
+        :root {
+            --entry: #fff;
+            --primary: #222;
+            --secondary: #666;
+            --tertiary: #999;
+            --content: #222;
+            --border: #eee;
+            --content-gap: 20px;
+            --radius: 8px;
+            --code-bg: #f7f7f7;
+            --code-block-bg: #2f2f2f;
+            --gap: 24px;
+            --header-height: 60px;
+            --footer-height: 60px;
+            --main-width: 800px;
+            --transition-duration: 0.3s;
+            --selection-bg: #b3d4fc;
+            --selection-text: #000;
+        }
+
+        /* Dark theme variables */
+        .dark {
+            --entry: #1f1f23;
+            --primary: #eee;
+            --secondary: #bbb;
+            --tertiary: #888;
+            --content: #ddd;
+            --border: #333;
+            --code-bg: #2a2a2a;
+            --selection-bg: #364764;
+            --selection-text: #fff;
+        }
+
+        /* Selection styles */
+        ::selection {
+            background: var(--selection-bg);
+            color: var(--selection-text);
+        }
+
+        /* Layout & Typography */
+        .page-header,
+        .post-header {
+            margin: 32px auto var(--content-gap) auto;
+        }
+
+        .post-title {
+            margin-bottom: 8px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            transition: color var(--transition-duration) ease;
+        }
+
+        .post-description {
+            margin: 16px 0;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .post-meta,
+        .breadcrumbs {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Enhanced breadcrumbs */
+        .breadcrumbs {
+            padding: 8px 0;
+            margin-bottom: 16px;
+        }
+
+        .breadcrumbs a {
+            font-size: 1rem;
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color var(--transition-duration) ease;
+        }
+
+        .breadcrumbs a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Content styles */
+        .post-content {
+            color: var(--content);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* Headings with improved hierarchy */
+        .post-content h1 {
+            margin: 48px auto 32px;
+            font-size: 2.25rem;
+            font-weight: 700;
+        }
+
+        .post-content h2 {
+            margin: 40px auto 24px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .post-content h3 {
+            margin: 32px 0 16px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Link styles */
+        .post-content a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: all var(--transition-duration) ease;
+        }
+
+        .post-content a:hover {
+            color: #0055aa;
+            text-decoration: underline;
+        }
+
+        /* Code blocks */
+        .post-content pre {
+            background: var(--code-block-bg);
+            padding: 16px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+
+        /* Inline code */
+        .post-content code:not(pre code) {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        /* Draft indicator */
+        .entry-hint {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 8px;
+            opacity: 0.7;
+            transition: opacity var(--transition-duration) ease;
+        }
+
+        .entry-hint:hover {
+            opacity: 1;
+        }
+
+        /* Post footer enhancements */
+        .post-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .post-tags li a {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--code-bg);
+            color: var(--secondary);
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all var(--transition-duration) ease;
+        }
+
+        .post-tags li a:hover {
+            background: var(--secondary);
+            color: var(--entry);
+        }
+
+        /* HackerNews stories list */
+        .hn-story-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .hn-story-list li {
+            margin-bottom: 16px;
+            padding: 16px;
+            background: var(--entry);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: transform var(--transition-duration) ease;
+        }
+
+        .hn-story-list li:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            :root {
+                --main-width: 95%;
+                --gap: 16px;
+            }
+
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .post-content {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="{{ if or (eq .Kind "page") (eq .Kind "section") }}{{ if not .Site.Params.disableThemeToggle }}dark{{ end }}{{ end }}">
+    {{ partial "header.html" . }}
+    <main class="main">
+        <article class="post-single">
+            <header class="post-header">
+                {{ partial "breadcrumbs.html" . }}
+                <h1 class="post-title entry-hint-parent">
+                    {{ .Title }}
+                    {{ if .Draft }}
+                    <span class="entry-hint" title="Draft">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" fill="currentColor">
+                            <path d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+                        </svg>
+                    </span>
+                    {{ end }}
+                </h1>
+
+                {{ if .Description }}
+                <div class="post-description">
+                    {{ .Description }}
+                </div>
+                {{ end }}
+
+                {{ if not (.Param "hideMeta") }}
+                <div class="post-meta">
+                    {{ partial "post_meta.html" . }}
+                    {{ partial "translation_list.html" . }}
+                    {{ partial "edit_post.html" . }}
+                    {{ partial "post_canonical.html" . }}
+                </div>
+                {{ end }}
+            </header>
+
+            {{ $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
+            {{ partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
+
+            {{ if (.Param "ShowToc") }}
+            {{ partial "toc.html" . }}
+            {{ end }}
+            
+            <div class="post-content">
+                {{ if not (.Param "disableAnchoredHeadings") }}
+                {{ partial "anchored_headings.html" .Content }}
+                {{ else }}{{ .Content }}{{ end }}
+                
+                <ul id="hackernews-stories" class="hn-story-list">
+                    <!-- Stories will be inserted here by JavaScript -->
+                </ul>
+            </div>
+            
+            <footer class="post-footer">
+                {{ $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+                <ul class="post-tags">
+                    {{ range ($.GetTerms $tags) }}
+                    <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+                    {{ end }}
+                </ul>
+
+                {{ if (.Param "ShowPostNavLinks") }}
+                {{ partial "post_nav_links.html" . }}
+                {{ end }}
+
+                {{ if and .Site.Params.ShowShareButtons (ne .Params.disableShare true) }}
+                {{ partial "share_icons.html" . }}
+                {{ end }}
+            </footer>
+            
+            {{ if (.Param "comments") }}
+            {{ partial "comments.html" . }}
+            {{ end }}
+        </article>
+    </main>
+    {{ partial "footer.html" . }}
+    <script src="/js/hackernews.js"></script>
+</body>
+</html>
