@@ -1,6 +1,7 @@
 baseURL: "https://kavishkaFX.github.io/"
 title: "KAVISHKA"
-paginate: 8
+pagination:
+  pagerSize: 8
 theme: PaperMod
 enableRobotsTXT: true
 buildDrafts: false
